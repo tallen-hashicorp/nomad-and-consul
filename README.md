@@ -1,2 +1,7 @@
 # nomad-and-consul
-Testing out running Consul and Nomad
+Testing out running Consul and Nomad. 
+
+## GCP
+
+## K8s
+Work in progress
