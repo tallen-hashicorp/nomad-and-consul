@@ -1,39 +1,69 @@
-# nomad-and-consul
-Testing out running Consul and Nomad. 
+# Nomad and Consul Setup on GCP
 
-## GCP
+This guide covers how to run **Nomad** and **Consul** in Google Cloud Platform (GCP) using **Packer** to build custom images.
 
-First we need to login to gcp
+## Prerequisites
+
+Ensure you have the following tools installed before proceeding:
+
+- [Google Cloud CLI (gcloud)](https://cloud.google.com/sdk/docs/install)
+- [HashiCorp Packer](https://developer.hashicorp.com/packer/tutorials/docker-get-started/get-started-install-cli)
+- **Nomad License File**
+
+## Step 1: Authenticate with GCP
+
+First, authenticate with your GCP account and configure the project you want to use:
+
 ```bash
+# Authenticate your GCP account
 gcloud auth application-default login
 
-# Replace with your project id
-gcloud config set project PROJECT_ID
+# Set your Google Cloud project ID
+gcloud config set project <PROJECT_ID>
 ```
 
-### Build Image
+Replace `<PROJECT_ID>` with your actual GCP project ID.
 
-#### Prequists
-* [gcloud CLI](https://cloud.google.com/sdk/docs/install)
-* [packer](https://developer.hashicorp.com/packer/tutorials/docker-get-started/get-started-install-cli)
-* Nomad Licence File
+## Step 2: Prepare to Build Images
 
-#### Configure Licence File
-This provisioner expects to find a hlic for nomad in the root of this directory, for example you can copy this from your Download folder
+### Configure Nomad License File
+
+Copy your license file (`nomad.hclic`) to the root of your working directory, an exmaple of this is as follows:
+
 ```bash
 cp ~/Downloads/nomad.hclic .
 ```
 
-#### Build
-```bash
-# Setup Variables, we use london as default, update the script if you want to change this
-sh packer/set-vars.sh
+Ensure that the license file is present before you run the Packer build.
 
-# Run Packer Build
+## Step 3: Build the Disk Image with Packer
+
+### Set Image Variables
+
+You need to configure the variables for the Packer build. Run the script to set up the necessary variables:
+
+```bash
+sh packer/set-vars.sh
+```
+
+This script will prompt you for your GCP project ID, region, and other details. By default, it uses **London (europe-west2)** as the region. You can modify the script or input a different region during execution if necessary.
+
+### Build Images
+
+Once the variables are set, use Packer to build the images for both **Nomad server** and **Nomad client**:
+
+```bash
+# Initialize Packer
 packer init packer/gcp-almalinux-nomad-server.pkr.hcl
+packer init packer/gcp-almalinux-nomad-client.pkr.hcl
+
+# Build Nomad server image
 packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-server.pkr.hcl
+
+# Build Nomad client image
 packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-client.pkr.hcl
 ```
 
-## K8s
-Work in progress
+## K8s Integration
+
+Work in progress—check back later for Kubernetes integration steps.
