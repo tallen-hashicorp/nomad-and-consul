@@ -64,6 +64,15 @@ packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-server.p
 packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-client.pkr.hcl
 ```
 
+## Step 4: Provision Nomad
+This will use terraform to provision a 3 node Nomad cluster with 1 addtional client creating a tfvars file from the our orignal pkrvars we used ealier. 
+```bash
+sed  '/image_family.*/d' variables.pkrvars.hcl > tf/terraform.tfvars
+cd tf
+terraform init
+terraform apply
+```
+
 ## K8s Integration
 
 Work in progress—check back later for Kubernetes integration steps.
