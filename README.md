@@ -1,6 +1,7 @@
 # Nomad and Consul Setup on GCP
 
-This guide covers how to run **Nomad** and **Consul** in Google Cloud Platform (GCP) using **Packer** to build custom images.
+This guide covers how to run **Nomad** and **Consul** in Google Cloud Platform (GCP) using **Packer** to build custom images meeting Hashicorps [Reference Architecture](https://developer.hashicorp.com/nomad/tutorials/enterprise/production-reference-architecture-vm-with-consul)
+![reference-diagram](./docs/reference-diagram.png)
 
 ## Prerequisites
 
@@ -50,7 +51,7 @@ This script will prompt you for your GCP project ID, region, and other details. 
 
 ### Build Images
 
-Once the variables are set, use Packer to build the images for both **Nomad server** and **Nomad client**:
+Once the variables are set, use Packer to build the images for both Nomad server and Nomad client. I have also provided a simple script to run both the server and client builds simultaneously: `./build-packer.sh`:
 
 ```bash
 # Initialize Packer
