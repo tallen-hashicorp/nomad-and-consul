@@ -26,25 +26,25 @@ variable "image_family" {
   default = "almalinux-8"
 }
 
-source "googlecompute" "almalinux-nomad-server" {
+source "googlecompute" "almalinux-nomad-client" {
   project_id          = var.gcp_project_id
   region              = var.gcp_region
   zone                = var.gcp_zone
   source_image_family = var.image_family
   machine_type        = "e2-medium"
-  image_name          = "almalinux-nomad-sever-{{timestamp}}"
-  image_family        = "almalinux-nomad-server"
+  image_name          = "almalinux-nomad-client-{{timestamp}}"
+  image_family        = "almalinux-nomad-client"
   disk_size           = 20
   disk_type           = "pd-standard"
   ssh_username        = "packer"
-  tags                = ["nomad-server"]
+  tags                = ["nomad-client"]
 }
 
 build {
-  sources = ["source.googlecompute.almalinux-nomad-server"]
+  sources = ["source.googlecompute.almalinux-nomad-client"]
 
   provisioner "file" {
-    source = "./packer/configs/server.hcl"
+    source = "./packer/configs/client.hcl"
     destination = "/tmp/nomad.hcl"
   }
 

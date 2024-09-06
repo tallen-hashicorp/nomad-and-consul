@@ -4,15 +4,20 @@ bind_addr = "0.0.0.0" # the default
 
 server {
   license_path = "/etc/nomad.d/license.hclic"
-  enabled          = true
-  bootstrap_expect = 3
+  enabled          = false
+}
+
+client {
+  enabled       = true
   server_join {
     retry_join: ["provider=gce tag_value=nomad-server"]
   }
 }
 
-client {
-  enabled       = false
+plugin "raw_exec" {
+  config {
+    enabled = true
+  }
 }
 
 consul {
