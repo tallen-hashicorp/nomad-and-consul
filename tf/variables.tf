@@ -7,6 +7,11 @@ variable "gcp_region" {
   default     = "europe-west2"
 }
 
+variable "gcp_zone" {
+  description = "value of the GCP zone"
+  default     = "europe-west2-a"
+}
+
 variable "server_instance_count" {
   description = "The number of server instances to create"
   default     = 3
