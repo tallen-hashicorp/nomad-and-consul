@@ -38,3 +38,4 @@ terraform.rc
 
 variables.pkrvars.hcl
 notes.md
+license.hclic

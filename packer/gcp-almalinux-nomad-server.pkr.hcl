@@ -43,7 +43,12 @@ source "googlecompute" "almalinux-nomad" {
 build {
   sources = ["source.googlecompute.almalinux-nomad"]
 
+  provisioner "file" {
+    source = "./packer/configs/server.hcl"
+    destination = "/tmp/nomad.hcl"
+  }
+
   provisioner "shell" {
-    script            = "./packer/provision-nomad-server.sh"
+    script            = "./packer/scripts/provision-nomad-server.sh"
   }
 }
