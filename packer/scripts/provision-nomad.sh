@@ -20,6 +20,9 @@ sudo chown root:root nomad
 sudo mv nomad /usr/bin/nomad
 nomad --version
 
+# Set SELinux Context
+sudo chcon -t bin_t /usr/bin/nomad
+
 # Copy config file
 sudo cp /tmp/nomad.hcl /etc/nomad.d/nomad.hcl
 
