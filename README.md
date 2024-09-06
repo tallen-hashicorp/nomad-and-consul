@@ -50,7 +50,7 @@ This script will prompt you for your GCP project ID, region, and other details. 
 
 ### Build Images
 
-Once the variables are set, use Packer to build the images for both **Nomad server** and **Nomad client**:
+Once the variables are set, use Packer to build the images for both Nomad server and Nomad client. I have also provided a simple script to run both the server and client builds simultaneously: `./build-packer.sh`:
 
 ```bash
 # Initialize Packer
