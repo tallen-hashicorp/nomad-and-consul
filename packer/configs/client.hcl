@@ -15,7 +15,7 @@ server {
 client {
   enabled       = true
   server_join {
-    retry_join: ["provider=gce tag_value=nomad-server"]
+    retry_join = ["provider=gce tag_value=nomad-server"]
   }
 }
 

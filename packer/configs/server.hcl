@@ -12,7 +12,7 @@ server {
   enabled          = true
   bootstrap_expect = 3
   server_join {
-    retry_join: ["provider=gce tag_value=nomad-server"]
+    retry_join = ["provider=gce tag_value=nomad-server"]
   }
 }
 
