@@ -44,13 +44,18 @@ build {
   sources = ["source.googlecompute.almalinux-nomad-client"]
 
   provisioner "file" {
-    source = "./packer/configs/client.hcl"
+    source = "./packer/configs/nomad-client.hcl"
     destination = "/tmp/nomad.hcl"
   }
 
   provisioner "file" {
     source = "./nomad.hclic"
-    destination = "/tmp/license.hclic"
+    destination = "/tmp/nomad.hclic"
+  }
+
+  provisioner "file" {
+    source = "./consul.hclic"
+    destination = "/tmp/consul.hclic"
   }
 
   provisioner "shell" {

@@ -27,12 +27,13 @@ Replace `<PROJECT_ID>` with your actual GCP project ID.
 
 ## Step 2: Prepare to Build Images
 
-### Configure Nomad License File
+### Configure License Files
 
-Copy your license file (`nomad.hclic`) to the root of your working directory, an exmaple of this is as follows:
+Copy your license files (`nomad.hclic` & `consul.hclic` ) to the root of your working directory, an exmaple of this is as follows:
 
 ```bash
 cp ~/Downloads/nomad.hclic .
+cp ~/Downloads/consul.hclic .
 ```
 
 Ensure that the license file is present before you run the Packer build.
