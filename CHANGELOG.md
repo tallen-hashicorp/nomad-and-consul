@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [untagged]
+### Added
+- *Your new features or improvements will be documented here.*
+
 ## [1.0.0] - 2024-09-09
 ### Added
 - Initial deployment of Nomad in a cluster with 3 servers and 1 client by default.
