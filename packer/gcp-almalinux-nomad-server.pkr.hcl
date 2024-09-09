@@ -49,6 +49,11 @@ build {
   }
 
   provisioner "file" {
+    source = "./packer/configs/consul-server.hcl"
+    destination = "/tmp/consul.hcl"
+  }
+
+  provisioner "file" {
     source = "./nomad.hclic"
     destination = "/tmp/nomad.hclic"
   }

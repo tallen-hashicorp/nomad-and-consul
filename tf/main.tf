@@ -72,3 +72,20 @@ data "google_compute_image" "almalinux_nomad_client" {
   family  = "almalinux-nomad-client"
   project = var.gcp_project_id
 }
+
+# -------------------Firewall Rule-------------------
+resource "google_compute_firewall" "nomad_firewall" {
+  name    = "nomad-firewall"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["4646", "8500"]
+  }
+
+  source_ranges = ["0.0.0.0/0"] # Adjust this if you want to restrict access to specific IP ranges
+
+  target_tags = ["nomad-server", "nomad-client"]
+}
+
+

@@ -14,6 +14,8 @@ server                  = true
 bootstrap_expect        = 3
 retry_join              = ["provider=gce tag_value=nomad-server"]
 
+license_path            = "/etc/consul.d/license.hclic"
+
 ui_config {
     enabled             = true
 }

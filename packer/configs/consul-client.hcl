@@ -13,6 +13,8 @@ server                  = false
 
 retry_join              = ["provider=gce tag_value=nomad-server"]
 
+license_path            = "/etc/consul.d/license.hclic"
+
 service {
     name                = "hashicorp/nomad-server"
     port                = 4647

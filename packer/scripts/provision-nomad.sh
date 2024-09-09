@@ -40,10 +40,12 @@ sudo chcon -t bin_t /usr/bin/consul
 
 # Copy config files
 sudo cp /tmp/nomad.hcl /etc/nomad.d/nomad.hcl
+sudo cp /tmp/consul.hcl /etc/nomad.d/consul.hcl
 
 # Copy license files
 sudo cp /tmp/nomad.hclic /etc/nomad.d/license.hclic
 sudo cp /tmp/consul.hclic /etc/consul.d/license.hclic
 
-# Enable Nomad to start at boot
+# Enable Services to start at boot
 sudo systemctl enable nomad
+sudo systemctl enable consul
