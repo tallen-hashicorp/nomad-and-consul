@@ -1,11 +1,12 @@
 # Nomad and Consul Setup on GCP
 
-This guide covers how to run **Nomad** and **Consul** in Google Cloud Platform (GCP) using **Packer** to build custom images meeting Hashicorps [Reference Architecture](https://developer.hashicorp.com/nomad/tutorials/enterprise/production-reference-architecture-vm-with-consul)
-![reference-diagram](./docs/reference-diagram.png)
+This guide outlines how to deploy **Nomad** and **Consul** on **Google Cloud Platform (GCP)** using **Packer** to build custom images based on HashiCorp's [Reference Architecture](https://developer.hashicorp.com/nomad/tutorials/enterprise/production-reference-architecture-vm-with-consul).
+
+![Reference Diagram](./docs/reference-diagram.png)
 
 ## Prerequisites
 
-Ensure you have the following tools installed before proceeding:
+Before you begin, ensure you have the following tools installed:
 
 - [Google Cloud CLI (gcloud)](https://cloud.google.com/sdk/docs/install)
 - [HashiCorp Packer](https://developer.hashicorp.com/packer/tutorials/docker-get-started/get-started-install-cli)
@@ -13,7 +14,7 @@ Ensure you have the following tools installed before proceeding:
 
 ## Step 1: Authenticate with GCP
 
-First, authenticate with your GCP account and configure the project you want to use:
+Authenticate your GCP account and configure the project you want to use:
 
 ```bash
 # Authenticate your GCP account
@@ -23,58 +24,61 @@ gcloud auth application-default login
 gcloud config set project <PROJECT_ID>
 ```
 
-Replace `<PROJECT_ID>` with your actual GCP project ID.
+Replace `<PROJECT_ID>` with your GCP project ID.
 
-## Step 2: Prepare to Build Images
+## Step 2: Set Up License Files
 
-### Configure License Files
-
-Copy your license files (`nomad.hclic` & `consul.hclic` ) to the root of your working directory, an exmaple of this is as follows:
+Copy your **Nomad** and **Consul** license files (`nomad.hclic` and `consul.hclic`) to the root of your working directory:
 
 ```bash
 cp ~/Downloads/nomad.hclic .
 cp ~/Downloads/consul.hclic .
 ```
 
-Ensure that the license file is present before you run the Packer build.
+Ensure both license files are present before building your images.
 
-## Step 3: Build the Disk Image with Packer
+## Step 3: Build Disk Images with Packer
 
-### Set Image Variables
+### Set Packer Variables
 
-You need to configure the variables for the Packer build. Run the script to set up the necessary variables:
+Use the provided script to configure necessary variables for the Packer build:
 
 ```bash
 sh packer/set-vars.sh
 ```
 
-This script will prompt you for your GCP project ID, region, and other details. By default, it uses **London (europe-west2)** as the region. You can modify the script or input a different region during execution if necessary.
+The script will prompt you for your GCP project ID, region, and other details. By default, it uses **London (europe-west2)** as the region. Modify this if needed during execution.
 
-### Build Images
+### Build the Images
 
-Once the variables are set, use Packer to build the images for both Nomad server and Nomad client. I have also provided a simple script to run both the server and client builds simultaneously: `./build-packer.sh`:
+Once variables are set, you can use **Packer** to build the **Nomad** server and client images. To update the version of **Nomad** or **Consul**, modify the `NOMAD_VERSION` and `CONSUL_VERSION` in the [provision-nomad.sh](./packer/scripts/provision-nomad.sh) script.
+
+You can run both builds simultaneously using `./build-packer.sh`, or manually with the following commands:
 
 ```bash
 # Initialize Packer
 packer init packer/gcp-almalinux-nomad-server.pkr.hcl
 packer init packer/gcp-almalinux-nomad-client.pkr.hcl
 
-# Build Nomad server image
+# Build the Nomad server image
 packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-server.pkr.hcl
 
-# Build Nomad client image
+# Build the Nomad client image
 packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-client.pkr.hcl
 ```
 
-## Step 4: Provision Nomad
-This will use terraform to provision a 3 node Nomad cluster with 1 addtional client creating a tfvars file from the our orignal pkrvars we used ealier. 
+## Step 4: Provision Nomad Cluster with Terraform
+
+You can now use Terraform to provision a **Nomad** cluster. This example creates a 3-node Nomad server cluster with an additional Nomad client node. The `terraform.tfvars` file is generated from the original `variables.pkrvars.hcl` used during the Packer build.
+
 ```bash
-sed  '/image_family.*/d' variables.pkrvars.hcl > tf/terraform.tfvars
+# Create tfvars from pkrvars and provision the cluster
+sed '/image_family.*/d' variables.pkrvars.hcl > tf/terraform.tfvars
 cd tf
 terraform init
 terraform apply
 ```
 
-## K8s Integration
+## Kubernetes Integration (Work in Progress)
 
-Work in progress—check back later for Kubernetes integration steps.
+Integration with **Kubernetes** is currently a work in progress. Stay tuned for updates on how to incorporate **Nomad** into your Kubernetes environment.
