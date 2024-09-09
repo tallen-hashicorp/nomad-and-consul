@@ -11,6 +11,7 @@ Before you begin, ensure you have the following tools installed:
 - [Google Cloud CLI (gcloud)](https://cloud.google.com/sdk/docs/install)
 - [HashiCorp Packer](https://developer.hashicorp.com/packer/tutorials/docker-get-started/get-started-install-cli)
 - **Nomad License File**
+- **Consul License File**
 
 ## Step 1: Authenticate with GCP
 
@@ -51,7 +52,7 @@ The script will prompt you for your GCP project ID, region, and other details. B
 
 ### Build the Images
 
-Once variables are set, you can use **Packer** to build the **Nomad** server and client images. To update the version of **Nomad** or **Consul**, modify the `NOMAD_VERSION` and `CONSUL_VERSION` in the [provision-nomad.sh](./packer/scripts/provision-nomad.sh) script.
+Once variables are set, you can use **Packer** to build the **Nomad** server and client images. To update the version of **Nomad** or **Consul**, modify the `NOMAD_VERSION` and `CONSUL_VERSION` in the [provision-nomad.sh](./packer/scripts/provision-nomad.sh) & [provision-consul.sh](./packer/scripts/provision-consul.sh) scripts.
 
 You can run both builds simultaneously using `./build-packer.sh`, or manually with the following commands:
 
@@ -84,7 +85,7 @@ terraform apply
 ```
 
 ## Firewall Configuration
-The firewall rule will open TCP ports 4646 and 8500, allowing you to access Nomad on port 4646 and Consul on port 8500 from any of the servers. You can access these services via a web browser using the external IP addresses of your servers.
+The firewall rule will open TCP ports 4646 and 8500, allowing you to access Nomad on port 4646 and Consul on port 8500 on the relevent the servers. You can access these services via a web browser using the external IP addresses of your servers. 
 
 # Kubernetes Integration (Work in Progress)
 
