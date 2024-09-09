@@ -59,12 +59,16 @@ You can run both builds simultaneously using `./build-packer.sh`, or manually wi
 # Initialize Packer
 packer init packer/gcp-almalinux-nomad-server.pkr.hcl
 packer init packer/gcp-almalinux-nomad-client.pkr.hcl
+packer init packer/gcp-almalinux-consul-server.pkr.hcl
 
 # Build the Nomad server image
 packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-server.pkr.hcl
 
 # Build the Nomad client image
 packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-nomad-client.pkr.hcl
+
+# Build the Consul server image
+packer build -var-file=variables.pkrvars.hcl packer/gcp-almalinux-consul-server.pkr.hcl
 ```
 
 ## Step 4: Provision Nomad Cluster with Terraform

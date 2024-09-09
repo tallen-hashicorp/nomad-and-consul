@@ -21,16 +21,6 @@ ui_config {
     enabled             = true
 }
 
-service {
-    name                = "hashicorp/nomad-server"
-    port                = 4646
-    check {
-        http            = "http://localhost:4646/v1/status/leader"
-        interval        = "10s"
-        timeout         = "1s"
-    }
-}
-
 telemetry {
     prometheus_retention_time   = "480h"
     disable_hostname            = true
