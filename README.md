@@ -79,6 +79,9 @@ terraform init
 terraform apply
 ```
 
-## Kubernetes Integration (Work in Progress)
+## Firewall Configuration
+The firewall rule will open TCP ports 4646 and 8500, allowing you to access Nomad on port 4646 and Consul on port 8500 from any of the servers. You can access these services via a web browser using the external IP addresses of your servers.
+
+# Kubernetes Integration (Work in Progress)
 
 Integration with **Kubernetes** is currently a work in progress. Stay tuned for updates on how to incorporate **Nomad** into your Kubernetes environment.

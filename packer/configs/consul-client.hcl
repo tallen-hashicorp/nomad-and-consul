@@ -3,6 +3,7 @@ datacenter              = "nomad"
 data_dir                = "/opt/consul"
 
 bind_addr               = "0.0.0.0" # the default
+client_addr             = "0.0.0.0"
 
 log_level               = "INFO"
 log_file                = "/var/log/"
@@ -17,9 +18,9 @@ license_path            = "/etc/consul.d/license.hclic"
 
 service {
     name                = "hashicorp/nomad-server"
-    port                = 4647
+    port                = 4646
     check {
-        http            = "http://localhost:4647/v1/status/leader"
+        http            = "http://localhost:4646/v1/status/leader"
         interval        = "10s"
         timeout         = "1s"
     }

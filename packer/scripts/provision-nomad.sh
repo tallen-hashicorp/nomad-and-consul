@@ -34,13 +34,17 @@ sudo chown root:root consul
 sudo mv consul /usr/bin/consul
 consul --version
 
+# Setup Consul Permisions
+sudo touch /var/log/consul.log
+sudo chown consul:consul /var/log/consul.log
+
 # Set SELinux Context
 sudo chcon -t bin_t /usr/bin/nomad
 sudo chcon -t bin_t /usr/bin/consul
 
 # Copy config files
 sudo cp /tmp/nomad.hcl /etc/nomad.d/nomad.hcl
-sudo cp /tmp/consul.hcl /etc/nomad.d/consul.hcl
+sudo cp /tmp/consul.hcl /etc/consul.d/consul.hcl
 
 # Copy license files
 sudo cp /tmp/nomad.hclic /etc/nomad.d/license.hclic
