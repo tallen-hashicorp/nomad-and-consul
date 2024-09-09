@@ -11,9 +11,6 @@ server {
   license_path        = "/etc/nomad.d/license.hclic"
   enabled             = true
   bootstrap_expect    = 3
-  server_join {
-    retry_join        = ["provider=gce tag_value=nomad-server"]
-  }
 }
 
 client {
@@ -22,4 +19,11 @@ client {
 
 telemetry {
   prometheus_metrics = true
+}
+
+consul {
+  address             = "127.0.0.1:8500"
+  server_service_name = "nomad"
+  auto_advertise      = true
+  server_auto_join    = true
 }
