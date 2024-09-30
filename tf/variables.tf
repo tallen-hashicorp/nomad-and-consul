@@ -18,6 +18,11 @@ variable "server_instance_count" {
 }
 
 variable "client_instance_count" {
-  description = "The number of clientinstances to create"
+  description = "The number of client instances to create"
+  default     = 1
+}
+
+variable "nginx_instance_count" {
+  description = "The number of nginx instances to create"
   default     = 1
 }

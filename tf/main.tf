@@ -94,6 +94,39 @@ resource "google_compute_instance" "nomad_client" {
   }
 }
 
+# -------------------Nginx-------------------
+
+resource "google_compute_instance" "nginx_server" {
+  count         = var.nginx_instance_count
+  name          = "nginx-${count.index + 1}"
+  machine_type  = "e2-small"
+  zone          = "${var.gcp_region}-a"
+
+  tags          = ["nginx-client"]
+
+  boot_disk {
+    initialize_params {
+      image = data.google_compute_image.almalinux_nginx.self_link
+      size  = 20
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {
+      // Required to give instances external IPs
+    }
+  }
+
+  metadata = {
+    enable-oslogin = "TRUE"
+  }
+
+  service_account {
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+}
+
 # -------------------Data-------------------
 data "google_compute_image" "almalinux_nomad_server" {
   family  = "almalinux-nomad-server"
@@ -107,6 +140,11 @@ data "google_compute_image" "almalinux_consul_server" {
 
 data "google_compute_image" "almalinux_nomad_client" {
   family  = "almalinux-nomad-client"
+  project = var.gcp_project_id
+}
+
+data "google_compute_image" "almalinux_nginx" {
+  family  = "almalinux-nginx"
   project = var.gcp_project_id
 }
 

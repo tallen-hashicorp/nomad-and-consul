@@ -19,6 +19,7 @@ Authenticate your GCP account and configure the project you want to use:
 
 ```bash
 # Authenticate your GCP account
+gcloud auth login
 gcloud auth application-default login
 
 # Set your Google Cloud project ID
