@@ -66,4 +66,8 @@ build {
   provisioner "shell" {
     script            = "./packer/scripts/provision-nomad.sh"
   }
+
+  provisioner "shell" {
+    script            = "./packer/scripts/disable-selinux.sh"
+  }
 }
