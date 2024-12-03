@@ -18,7 +18,7 @@ variable "server_instance_count" {
 }
 
 variable "client_instance_count" {
-  description = "The number of nomad client instances to create"
+  description = "The number of Nomad client instances to create"
   default     = 1
 }
 
