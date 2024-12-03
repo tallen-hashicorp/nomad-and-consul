@@ -62,7 +62,7 @@ resource "google_compute_instance" "consul_servers" {
   }
 }
 
-# -------------------Client-------------------
+# -------------------Nomad Client-------------------
 resource "google_compute_instance" "nomad_client" {
   count         = var.client_instance_count
   name          = "nomad-client-${count.index + 1}"
