@@ -18,6 +18,12 @@ sudo dnf install -y nomad
 # Install Consul
 sudo dnf install -y consul
 
+# Install Docker
+sudo dnf install -y dnf-plugins-core nomad-driver-podman
+sudo dnf install -y docker
+sudo systemctl enable podman.socket
+
+
 # Upgrade Nomad to ent
 wget -q "https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip"
 unzip "nomad_${NOMAD_VERSION}_linux_amd64.zip"
