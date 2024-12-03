@@ -21,6 +21,14 @@ ui_config {
     enabled             = true
 }
 
+ports {
+    grpc                = 8502
+}
+
+connect {
+  enabled               = true
+}
+
 telemetry {
     prometheus_retention_time   = "480h"
     disable_hostname            = true

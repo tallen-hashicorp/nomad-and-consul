@@ -16,6 +16,10 @@ retry_join              = ["provider=gce tag_value=consul-server"]
 
 license_path            = "/etc/consul.d/license.hclic"
 
+ports {
+    grpc                = 8502
+}
+
 telemetry {
     prometheus_retention_time   = "480h"
     disable_hostname            = true
